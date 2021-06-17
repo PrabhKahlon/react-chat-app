@@ -17,11 +17,11 @@ app.get("/api/login", (req, res) => {
 io.on("connection", (socket) => {
     console.log("new client connection");
     console.log(socket.id);
-    io.to(socket.id).emit("userList", users);
     socket.on("newUser", (name) => {
         const user = {id: socket.id, name: name};
         users.push(user);
-        socket.broadcast.emit("addUser", {id: socket.id, name: name});
+        console.log(users);
+        io.emit("userList", users);
     });
 });
 

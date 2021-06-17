@@ -1,14 +1,16 @@
 import React from 'react'
 import Message from './Message';
+import UserList from './UserList';
 
-export default function Main() {
+export default function Main(props) {
 
     function handleMessage(event) {
         event.preventDefault();
     }
 
     return (
-        <div style={{ maxWidth: "1200px" }} className="container-fluid vh-100 border-start border-end border-secondary">
+        <>
+        <div style={{ maxWidth: "1200px"}} className="container-fluid vh-100 border-start border-end border-secondary">
             <div style={{ height: "93%" }} className="d-flex flex-column overflow-auto p-1 pt-4">
                 <Message receive="true"/>
                 <Message/>
@@ -24,5 +26,7 @@ export default function Main() {
                 </form>
             </div>
         </div>
+        <UserList socket={props.socket}></UserList>
+        </>
     )
 }
