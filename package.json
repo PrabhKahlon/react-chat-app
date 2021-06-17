@@ -1,0 +1,34 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "A simple chat app made with react and express",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prabhkahlon99/react-chat-app.git"
+  },
+  "keywords": [
+    "React",
+    "Node.js",
+    "Express",
+    "Socket.io",
+    "Chat",
+    "App"
+  ],
+  "author": "Prabh Kahlon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prabhkahlon99/react-chat-app/issues"
+  },
+  "homepage": "https://github.com/prabhkahlon99/react-chat-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
