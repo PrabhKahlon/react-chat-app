@@ -30,7 +30,7 @@ function App() {
   if (socket) {
     return (
       <div className="App">
-        {username ? <Main socket={socket} /> : <Login changeUserName={changeUser} />}
+        {username ? <Main username={username} socket={socket} /> : <Login changeUserName={changeUser} />}
       </div>
     );
   } else {

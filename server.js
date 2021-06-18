@@ -14,6 +14,8 @@ app.get("/api/login", (req, res) => {
 
 });
 
+//TODO add message capability and make it look nice. Everything is already setup so this should be simple.
+
 io.on("connection", (socket) => {
     console.log("new client connection");
     console.log(socket.id);
@@ -29,6 +31,10 @@ io.on("connection", (socket) => {
             users.splice(tempIndex, 1)[0];
         }
         io.emit("userList", users);
+    });
+    socket.on("messageSend", (message) => {
+        console.log(message);
+        socket.broadcast.emit("messageReceive", message);
     });
 });
 

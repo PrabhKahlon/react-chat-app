@@ -9,10 +9,12 @@ export default function UserList(props) {
             setUsers(data);
             console.log(data);
         });
-    }, []);
+        return () => {
+            props.socket.off("userList");
+        }
+    }, [props.socket]);
     
     if(users && users.length > 0) {
-        console.log(users);
         return(
             <ul>
                 {users.map((user, i) => {
