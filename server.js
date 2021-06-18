@@ -22,7 +22,7 @@ io.on("connection", (socket) => {
     socket.on("newUser", (name) => {
         const user = { id: socket.id, name: name };
         users.push(user);
-        console.log(users);
+        //console.log(users);
         io.emit("userList", users);
     });
     socket.on("disconnect", () => {
@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
         io.emit("userList", users);
     });
     socket.on("messageSend", (message) => {
-        console.log(message);
+        //console.log(message);
         socket.broadcast.emit("messageReceive", message);
     });
 });

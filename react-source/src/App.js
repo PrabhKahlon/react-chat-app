@@ -5,14 +5,12 @@ import io from "socket.io-client";
 
 function App() {
   const [username, setUsername] = useState(null);
-  const [connected, setConnected] = useState(false);
   const [socket, setSocket] = useState(null);
 
   //Connect with the server only once.
   useEffect(() => {
     let socket = io();
     socket.on("connect", () => {
-      setConnected(true);
       setSocket(socket);
     })
     return () => {
@@ -24,7 +22,7 @@ function App() {
   //Sets the username for the session
   function changeUser(name) {
     setUsername(name);
-    console.log(socket);
+    //console.log(socket);
     socket.emit("newUser", name);
   }
   if (socket) {

@@ -1,30 +1,40 @@
-import { React, useEffect, useState } from 'react'
+import { React, useEffect, useState, useRef } from 'react'
 import Message from './Message';
 import UserList from './UserList';
 
 export default function Main(props) {
     const [message, setMessage] = useState("");
     const [messageList, setMessageList] = useState([]);
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         props.socket.on("messageReceive", (data) => {
-            console.log(data);
-            setMessageList(m => [...m, { id: data.id, username: data.username, data: data.data, date: data.date, receive: true }]);
+            //console.log(data);
+            setMessageList(m => [...m, { id: data.id, username: data.username, data: data.data, date: new Date().getTime(), receive: true }]);
         });
         return () => {
             props.socket.off("messageReceive");
         }
     }, [props.socket]);
 
+    function scrollToBottom() {
+        messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messageList])
+
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(message, props.socket.id);
+        //console.log(message, props.socket.id);
         let msgObj = { id: props.socket.id, username: props.username, data: message, date: new Date().getTime(), receive: false };
         props.socket.emit("messageSend", msgObj);
         setMessageList(m => [...m, msgObj]);
+        setMessage("");
     }
 
-    console.log(messageList);
+    //console.log(messageList);
 
     return (
         <>
@@ -33,6 +43,7 @@ export default function Main(props) {
                     {messageList.map((message, i) => {
                         return (<Message key={i} message={message} />);
                     })}
+                    <div ref={messagesEndRef}/>
                 </div>
                 <div style={{ height: "7%" }} className="mx-auto">
                     <form className="row align-items-center mx-auto" onSubmit={handleSubmit}>
@@ -45,7 +56,6 @@ export default function Main(props) {
                     </form>
                 </div>
             </div>
-            <UserList socket={props.socket}></UserList>
         </>
     )
 }

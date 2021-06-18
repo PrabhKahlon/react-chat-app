@@ -7,7 +7,7 @@ export default function UserList(props) {
     useEffect(() => {
         props.socket.on("userList", (data) => {
             setUsers(data);
-            console.log(data);
+            //console.log(data);
         });
         return () => {
             props.socket.off("userList");
