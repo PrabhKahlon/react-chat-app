@@ -10,7 +10,7 @@ export default function Main(props) {
     useEffect(() => {
         props.socket.on("messageReceive", (data) => {
             //console.log(data);
-            setMessageList(m => [...m, { id: data.id, username: data.username, data: data.data, date: new Date().getTime(), receive: true }]);
+            setMessageList(m => [...m, { id: data.id, username: data.username, data: data.data, date: new Date().getTime(), receive: true, join: data.join, leave: data.leave }]);
         });
         return () => {
             props.socket.off("messageReceive");

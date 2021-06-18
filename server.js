@@ -24,13 +24,16 @@ io.on("connection", (socket) => {
         users.push(user);
         //console.log(users);
         io.emit("userList", users);
+        socket.broadcast.emit("messageReceive", {id: socket.id, username: name, join: true, leave: false});
     });
     socket.on("disconnect", () => {
         var tempIndex = users.findIndex(user => user.id === socket.id);
         if (tempIndex != -1) {
+            socket.broadcast.emit("messageReceive", {id: socket.id, username: users[tempIndex].name, join: false, leave: true});
             users.splice(tempIndex, 1)[0];
         }
         io.emit("userList", users);
+        
     });
     socket.on("messageSend", (message) => {
         //console.log(message);
