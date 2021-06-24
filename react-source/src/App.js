@@ -22,9 +22,9 @@ function App() {
   //Sets the username for the session
   function changeUser(name) {
     setUsername(name);
-    //console.log(socket);
     socket.emit("newUser", name);
   }
+
   if (socket) {
     return (
       <div className="App">

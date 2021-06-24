@@ -1,15 +1,16 @@
 import { React, useEffect, useState, useRef } from 'react'
 import Message from './Message';
-import UserList from './UserList';
 
+//Main component
 export default function Main(props) {
+    //Message to send
     const [message, setMessage] = useState("");
+    //List for all message received and sent
     const [messageList, setMessageList] = useState([]);
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
         props.socket.on("messageReceive", (data) => {
-            //console.log(data);
             setMessageList(m => [...m, { id: data.id, username: data.username, data: data.data, date: new Date().getTime(), receive: true, join: data.join, leave: data.leave }]);
         });
         return () => {
@@ -17,6 +18,7 @@ export default function Main(props) {
         }
     }, [props.socket]);
 
+    //Uses a ref to an empty div to scroll to the bottom so the latest messages are always in view.
     function scrollToBottom() {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
     }
@@ -27,14 +29,11 @@ export default function Main(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        //console.log(message, props.socket.id);
         let msgObj = { id: props.socket.id, username: props.username, data: message, date: new Date().getTime(), receive: false };
         props.socket.emit("messageSend", msgObj);
         setMessageList(m => [...m, msgObj]);
         setMessage("");
     }
-
-    //console.log(messageList);
 
     return (
         <>

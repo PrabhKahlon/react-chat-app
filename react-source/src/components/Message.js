@@ -1,11 +1,12 @@
 import React from 'react'
 
+//Message component. 
+//Renders the message received from the server
+//Props include a message object which contains {id: int, username: string, data: string, date: new Date(), receive: boolean, join: boolean, leave: boolean}
 export default function Message(props) {
 
     let receiveStyle = "toast show mb-2";
     let sendStyle = "toast show align-self-end mb-2";
-
-    console.log(props.message);
 
     if(props.message.join) {
         return (
