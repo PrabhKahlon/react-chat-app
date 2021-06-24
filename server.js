@@ -1,7 +1,7 @@
 //Basic socket.io server to broadcast messages to all connected clients.
 
 const express = require("express");
-const PORT = 3000 || process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
